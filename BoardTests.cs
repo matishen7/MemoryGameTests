@@ -43,5 +43,16 @@ namespace MemoryGameTests
                 Assert.That(board.cells[i].Length, Is.EqualTo(6));
 
         }
+
+        [Test]
+        public void BoardBuilder_Should_AllCardsRevelead()
+        {
+            var board = new ConsoleBoardBuilder()
+                .WithDimensions(4, 6)
+                .Build();
+            var a = board.AllCardsFound();
+            Assert.That(a, Is.EqualTo(false));
+
+        }
     }
 }
