@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MemoryGameTests
 {
-    public class BoardBuilderTests
+    public class BoardTests
     {
         [SetUp]
         public void Setup()
