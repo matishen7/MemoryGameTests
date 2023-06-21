@@ -1,5 +1,4 @@
-﻿using MemoryGame;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,49 +8,56 @@ namespace MemoryGameTests
 {
     public class BoardTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
-        public void BoardBuilder_Should_Build_ConsoleBoard_WithLength2()
-        {
-            var board = new ConsoleBoardBuilder()
-                .WithDimensions(2, 2)
-                .Build();
-            Assert.That(board.cells.Length, Is.EqualTo(2));
-        }
-
-        [Test]
-        public void BoardBuilder_Should_Build_ConsoleBoard_WithLength4()
-        {
-            var board = new ConsoleBoardBuilder()
-                .WithDimensions(4, 2)
-                .Build();
-            Assert.That(board.cells.Length, Is.EqualTo(4));
-        }
-
-        [Test]
-        public void BoardBuilder_Should_Build_ConsoleBoard_WithLength6()
-        {
-            var board = new ConsoleBoardBuilder()
-                .WithDimensions(4, 6)
-                .Build();
-            Assert.That(board.cells.Length, Is.EqualTo(4));
-            for (int i = 0; i < 4; i++)
-                Assert.That(board.cells[i].Length, Is.EqualTo(6));
-
-        }
-
-        [Test]
-        public void BoardBuilder_Should_AllCardsRevelead()
+        public void Board_AllCardsFound_False()
         {
             var board = new ConsoleBoardBuilder()
                 .WithDimensions(4, 6)
                 .Build();
             var a = board.AllCardsFound();
             Assert.That(a, Is.EqualTo(false));
+
+        }
+
+        [Test]
+        public void Board_AllCardsFound_True()
+        {
+            var board = new ConsoleBoardBuilder()
+                .WithDimensions(2, 2)
+                .Build();
+            for (var i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2;j++)
+                    board.cells[i][j].SetAsFound();
+            }
+            var result = board.AllCardsFound();
+            Assert.That(result, Is.EqualTo(true));
+
+        }
+
+        [Test]
+        public void Board_CheckIfCardsMatch_True()
+        {
+            var board = new ConsoleBoardBuilder()
+                .WithDimensions(2, 2)
+                .Build();
+            var image1 = board.cells[0][0].GetImage();
+            var image2 = board.cells[0][1].GetImage();
+            var result = board.CheckIfCardsMatch(0,0,0,1);
+            Assert.That(result, Is.EqualTo(true));
+
+        }
+
+        [Test]
+        public void Board_CheckIfCardsMatch_False()
+        {
+            var board = new ConsoleBoardBuilder()
+                .WithDimensions(2, 2)
+                .Build();
+            var image1 = board.cells[0][0].GetImage();
+            var image2 = board.cells[1][1].GetImage();
+            var result = board.CheckIfCardsMatch(0, 0, 1, 1);
+            Assert.That(result, Is.EqualTo(false));
 
         }
     }
