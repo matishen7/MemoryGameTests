@@ -14,7 +14,7 @@ namespace MemoryGameTests
             var board = new ConsoleBoardBuilder()
                 .WithDimensions(4, 6)
                 .Build();
-            var a = board.AllCardsFound();
+            var a = board.EndGame();
             Assert.That(a, Is.EqualTo(false));
 
         }
@@ -30,7 +30,7 @@ namespace MemoryGameTests
                 for (int j = 0; j < 2;j++)
                     board.cells[i][j].SetAsFound();
             }
-            var result = board.AllCardsFound();
+            var result = board.EndGame();
             Assert.That(result, Is.EqualTo(true));
 
         }
